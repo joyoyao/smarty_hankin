@@ -39,7 +39,7 @@ $i_theme_dark_layouts = cs_get_option('i_theme_dark_layouts');
 <body class="<?= isset($_COOKIE['background']) ? $_COOKIE['background'] : 'background-blue'?>">
 	<div class="<?= isset($_COOKIE['box-layout']) ? $_COOKIE['box-layout'] : 'container box-layout' ?>" id="body">
 <?php else:?>
-<body class="background-blue" style="background-size:cover;">
+<body class="background-blue" style="background:url('https://cn.bing.com/th?id=OHR.NarniaForest_ZH-CN8466850438_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp') no-repeat fixed center;background-size:cover;">
 	<div class="<?= ($i_theme_box_center) ? 'container box-layout' : '' ?>" id="body">
 <?php endif;?>
 <!-- [ Pre-loader ] start -->

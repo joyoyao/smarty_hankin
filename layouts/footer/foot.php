@@ -12,11 +12,11 @@ $i_music_loop = cs_get_option('i_music_loop'); //音乐循环
 $i_music_value = cs_get_option('i_music_value'); //音乐播放列表id
 $i_slider = cs_get_option('i_slider'); //自定义幻灯片
 ?>
-<!--定义全局变量--> 
+<!--定义全局变量-->
 <script type="text/javascript">
-window.THEME_URL = '<?php echo get_template_directory_uri(); ?>'; 
-window.ENCODE_URI_COMPONENT_TITLE = document.title; 
-window.ENCODE_URI_COMPONENT_LINK = this.location.href; 
+window.THEME_URL = '<?php echo get_template_directory_uri(); ?>';
+window.ENCODE_URI_COMPONENT_TITLE = document.title;
+window.ENCODE_URI_COMPONENT_LINK = this.location.href;
 window.ENCODE_URI_COMPONENT_IMAGE = '<?php echo get_template_directory_uri(); ?>/screenshot.jpg';
 window.ENCODE_URI_COMPONENT_DESC = '<?= $i_seo_description?>';
 window.ENCODE_URI_COMPONENT_SITE = '<?= $i_seo_keywords?>';
@@ -88,39 +88,6 @@ wxConfig = {
 <!--网站统计代码 end-->
 <!-- [ modal ] start -->
  <?php get_template_part( 'layouts/footer/modal' );?>
- <?php 
-
-function get_bing_img_cache()
-{
-	// 获取wp路径
-	$imgDir = wp_upload_dir();
-	$bingDir = $imgDir['basedir'].'/bing';
-	if (!file_exists($bingDir)) {
-		mkdir($bingDir, 0755);
-	}
-	$today = mktime(0,0,0,date('m'),date('d'),date('Y'));
-	$yesterday = mktime(0,0,0,date('m'),date('d')-1,date('Y'));
-	// 是否存在今日图片
-	if (!file_exists($bingDir.'/'.$today.'.jpg')) {
-		// 从bing获取数据
-		$res = file_get_contents('https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1');
-		// 转成数组
-		$bingArr = json_decode($res, true);
-		$bing_url = "https://cn.bing.com{$bingArr['images'][0]['urlbase']}_1920x1080.jpg";
-		$content = file_get_contents($bing_url);
-		file_put_contents($bingDir.'/'.$today.'.jpg', $content); // 写入今天的
-		unlink($bingDir.'/'.$yesterday.'jpg'); //删除昨天的
-		$src = $imgDir['baseurl'].'/bing/'.$yesterday.'.jpg';
-	} else {
-		// 存在
-		$src = $imgDir['baseurl'].'/bing/'.$today.'.jpg';
-	}
-	return $src;
-}
-
-if(!empty(get_bing_img_cache())){echo "style='background-image: url(".get_bing_img_cache().")'";}
- ?>
-
 <!-- [ modal ] end -->
 </body>
 </html>
