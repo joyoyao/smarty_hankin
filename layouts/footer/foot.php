@@ -89,13 +89,36 @@ wxConfig = {
 <!-- [ modal ] start -->
  <?php get_template_part( 'layouts/footer/modal' );?>
  <?php 
-   $str=file_get_contents('http://cn.bing.com/HPImageArchive.aspx?idx=0&n=1');
 
-   if(preg_match("/<url>(.+?)<\/url>/ies",$str,$matches)){
-       $imgurl='http://cn.bing.com'.$matches[1];
-	   echo'<style type="text/css">body{background: url('.$imgurl.');width:100%;height:100%;background-image:url('.$imgurl.');-moz-background-size: 100% 100%;-o-background-size: 100% 100%;-webkit-background-size: 100% 100%;background-size: 100% 100%;-moz-border-image: url('.$imgurl.') 0;background-repeat:no-repeat\9;background-image:none\9;}</style>';
-   }
+function get_bing_img_cache()
+{
+	// 获取wp路径
+	$imgDir = wp_upload_dir();
+	$bingDir = $imgDir['basedir'].'/bing';
+	if (!file_exists($bingDir)) {
+		mkdir($bingDir, 0755);
+	}
+	$today = mktime(0,0,0,date('m'),date('d'),date('Y'));
+	$yesterday = mktime(0,0,0,date('m'),date('d')-1,date('Y'));
+	// 是否存在今日图片
+	if (!file_exists($bingDir.'/'.$today.'.jpg')) {
+		// 从bing获取数据
+		$res = file_get_contents('https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1');
+		// 转成数组
+		$bingArr = json_decode($res, true);
+		$bing_url = "https://cn.bing.com{$bingArr['images'][0]['urlbase']}_1920x1080.jpg";
+		$content = file_get_contents($bing_url);
+		file_put_contents($bingDir.'/'.$today.'.jpg', $content); // 写入今天的
+		unlink($bingDir.'/'.$yesterday.'jpg'); //删除昨天的
+		$src = $imgDir['baseurl'].'/bing/'.$yesterday.'.jpg';
+	} else {
+		// 存在
+		$src = $imgDir['baseurl'].'/bing/'.$today.'.jpg';
+	}
+	return $src;
+}
 
+if(!empty(get_bing_img_cache())){echo "style='background-image: url(".get_bing_img_cache().")'";}
  ?>
 
 <!-- [ modal ] end -->
