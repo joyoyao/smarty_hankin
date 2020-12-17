@@ -8,20 +8,6 @@ $i_theme_box_center = cs_get_option('i_theme_box_center');
 $i_theme_blur_layouts = cs_get_option('i_theme_blur_layouts');
 $i_theme_dark_layouts = cs_get_option('i_theme_dark_layouts');
 ?>
-<!--
-.----------------.  .----------------.  .-----------------. .----------------.  .----------------.  .-----------------.
-| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
-| |  ____  ____  | || |      __      | || | ____  _____  | || |  ___  ____   | || |     _____    | || | ____  _____  | |
-| | |_   ||   _| | || |     /  \     | || ||_   \|_   _| | || | |_  ||_  _|  | || |    |_   _|   | || ||_   \|_   _| | |
-| |   | |__| |   | || |    / /\ \    | || |  |   \ | |   | || |   | |_/ /    | || |      | |     | || |  |   \ | |   | |
-| |   |  __  |   | || |   / ____ \   | || |  | |\ \| |   | || |   |  __'.    | || |      | |     | || |  | |\ \| |   | |
-| |  _| |  | |_  | || | _/ /    \ \_ | || | _| |_\   |_  | || |  _| |  \ \_  | || |     _| |_    | || | _| |_\   |_  | |
-| | |____||____| | || ||____|  |____|| || ||_____|\____| | || | |____||____| | || |    |_____|   | || ||_____|\____| | |
-| |              | || |              | || |              | || |              | || |              | || |              | |
-| '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
-'----------------'  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'
-唤醒-hankin
-Blog：https://www.hankin.cn -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -53,7 +39,7 @@ Blog：https://www.hankin.cn -->
 <body class="<?= isset($_COOKIE['background']) ? $_COOKIE['background'] : 'background-blue'?>">
 	<div class="<?= isset($_COOKIE['box-layout']) ? $_COOKIE['box-layout'] : 'container box-layout' ?>" id="body">
 <?php else:?>
-<body class="background-blue" style="background:url(<?= $i_theme_background;?>) no-repeat fixed center;background-size:cover;">
+<body class="background-blue" style="background-size:cover;">
 	<div class="<?= ($i_theme_box_center) ? 'container box-layout' : '' ?>" id="body">
 <?php endif;?>
 <!-- [ Pre-loader ] start -->
